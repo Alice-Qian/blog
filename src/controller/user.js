@@ -1,20 +1,12 @@
-const {
-    exec
-} = require('../db/mysql')
+const { exec, escape } = require("../db/mysql");
 
 const login = (username, password) => {
-    const sql = `select username,realname from users where username='${username}' and password='${password}'`;
-
-    return exec(sql).then(data => {
-        return data[0] || {}
-    })
-}
-
-const register = (username, password) => {
-
-}
+  username = escape(username);
+  password = escape(password);
+  let sql = `select username,realname from users where username='${username}' and password='${password}'`;
+  return exec(sql);
+};
 
 module.exports = {
-    login,
-    register
-}
+  login
+};

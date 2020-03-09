@@ -2,20 +2,18 @@
   "name": "03-blog",
   "version": "1.0.0",
   "description": "",
-  "main": "bin/www.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "cross-env NODE_ENV=dev nodemon ./bin/www.js",
-    "prd": "cross-env NODE_ENV=production nodemon ./bin/www.js"
+    "dev": "cross-env NODE_ENV=development nodemon ./bin/www.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "cross-env": "^5.2.0",
-    "nodemon": "^1.19.1"
-  },
   "dependencies": {
-    "mysql": "^2.17.1",
-    "redis": "^2.8.0"
+    "mysql": "^2.18.1",
+    "redis": "^3.0.2"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.1"
   }
 }

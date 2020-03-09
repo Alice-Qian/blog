@@ -1,50 +1,25 @@
-const {
-    login
-} = require('../controller/user')
-const {
-    SuccessModel,
-    ErrorModel
-} = require('../model/resModel')
-
+const { login } = require("../controller/user.js");
+const { SuccessModel, ErrorModel } = require("../model/resModel");
 
 const handleUserRouter = async (req, res) => {
-    const method = req.method;
-    if (method === 'POST' && req.path === '/api/user/login') {
-        const {
-            username,
-            password
-        } = req.body;
+  const method = req.method;
+  const path = req.path;
 
-        const result = await login(username, password);
+  if (method == "POST" && path == "/api/user/login") {
+    const { username, password } = req.body;
 
-        if (result.username) {
-            req.session.username = result.username;
-            req.session.realname = result.realname;
+    let data = await login(username, password);
 
-            return new SuccessModel();
-        } else {
-            return new ErrorModel('登录失败');
-        }
+    data=data[0]
+  
+    if (data.username) {
+      req.session.username = data.username;
+      req.session.realname = data.realname;
+      return new SuccessModel();
     }
 
-    // 登录验证的测试
-    // if (method === 'GET' && req.path === '/api/user/login-test') {
-    //     console.log(req.session)
-    //     if (req.session.username) {
-    //         return Promise.resolve(
-    //             new SuccessModel({
-    //                 session: req.session
-    //             })
-    //         )
-    //     }
-    //     return new ErrorModel();
-    // }
-
-    if (method === 'POST' && req.path === 'api/user/reg') {
-        return {
-            msg: "这是注册的接口"
-        }
-    }
-}
+    return new ErrorModel("登陆失败");
+  }
+};
 
 module.exports = handleUserRouter;
