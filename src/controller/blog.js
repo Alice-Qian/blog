@@ -1,4 +1,5 @@
 const { exec } = require("../db/mysql");
+const xss = require("xss");
 
 const getList = (keyword, author) => {
   let sql = `select * from blogs where state=1 `;
@@ -18,8 +19,8 @@ const getDetail = id => {
 };
 
 const newBlog = body => {
-  const title = body.title;
-  const content = body.content;
+  const title = xss(body.title);
+  const content = xss(body.content);
   const createtime = +new Date();
   const author = body.author;
 
@@ -30,8 +31,8 @@ const newBlog = body => {
 
 const updateBlog = body => {
   const id = body.id;
-  const title = body.title;
-  const content = body.content;
+  const title = xss(body.title);
+  const content = xss(body.content);
 
   let sql = `update blogs set title='${title}', content='${content}' where id=${id} `;
 
